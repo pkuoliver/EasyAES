@@ -16,12 +16,12 @@ String plaitText = EasyAES.dencryptString(data);
 ## php版本用法：
 ```PHP
 function encryptString($content) {
-	$aes = new MagicCrypt('****************', 128, '################');
+	$aes = new EasyAESCrypt('****************', 128, '################');
 	return $aes->encrypt($content);
 }
  
 function decryptString($content) {
-	$aes = new MagicCrypt('****************', 128, '################');
+	$aes = new EasyAESCrypt('****************', 128, '################');
 	return $aes->decrypt($content);
 }
 ```
@@ -37,6 +37,6 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 
 以上所有版本都需要设置下自己的加密密码以及偏移向量iv，均为16位字符。
 
-后期几乎加上C#, C, C++版本，敬请期待。
+后期计划加上C#, C, C++版本，敬请期待。
 
 更多信息请访问我的博客[帝都码农](http://diducoder.com)
