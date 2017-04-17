@@ -25,10 +25,12 @@ AES encrypt/decrypt, Android, iOS, php compatible(兼容php, Android, iOS平台)
 
 
 ## iOS版本用法
-	NSData* pData = ...//nsdata form server
+	NSData* pData = ...//encrypted data form server
 	NSData* plaitData = [NSData AES128DecryptedData:data];
 	
 
 以上所有版本都需要设置下自己的加密密码以及偏移向量iv，均为16位字符。
+
+后期几乎加上C#, C, C++版本，敬请期待。
 
 更多信息请访问我的博客[帝都码农](http://diducoder.com)
