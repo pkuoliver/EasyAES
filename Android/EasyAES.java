@@ -203,7 +203,6 @@ public class EasyAES {
 			MagicCrypt mc = new MagicCrypt("****************", 128, "################");
 			result = mc.decrypt(content);
 		} catch(Exception ex) {
-            result = repairDecryptString(content);
 			ex.printStackTrace();
 		}
 		return result;
