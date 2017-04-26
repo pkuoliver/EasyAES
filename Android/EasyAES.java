@@ -192,16 +192,16 @@ public class EasyAES {
 	
 	public static String encryptString(String content) {
 		//这里填写密码和iv字符串，注意要确保16位的
-		MagicCrypt mc = new MagicCrypt("****************", 128, "################");
-		return mc.encrypt(content);
+		EasyAES ea = new EasyAES("****************", 128, "################");
+		return ea.encrypt(content);
 	}
 	
 	public static String decryptString(String content) {
         String result = null;
 		try {
 			//这里填写密码和iv字符串，注意要确保16位的
-			MagicCrypt mc = new MagicCrypt("****************", 128, "################");
-			result = mc.decrypt(content);
+			EasyAES ea = new EasyAES("****************", 128, "################");
+			result = ea.decrypt(content);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
