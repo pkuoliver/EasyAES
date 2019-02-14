@@ -3,12 +3,15 @@ class EasyAESCrypt {
 	private $iv;
 	private $key;
 	private $bit; //Only can use 128, 256
-	function EasyAESCrypt($key, $bit = 128, $iv = "") {
+	function __construct($key, $bit = 128, $iv = "") {
+		// gen key
 		if($bit == 256){
 			$this->key = hash('SHA256', $key, true);
 		}else{
 			$this->key = hash('MD5', $key, true);
 		}
+
+		// gen iv
 		if($iv != ""){
 			$this->iv = hash('MD5', $iv, true);
 		}else{
@@ -17,6 +20,32 @@ class EasyAESCrypt {
 	}
 
 	function encrypt($str) {
+		if(version_compare(PHP_VERSION,'7.0.0','ge')) {
+			return $this->opensslEncrypt($str);
+		} else {
+			return $this->mcryptEncrypt($str);
+		}
+	}
+
+	function decrypt($str) {
+		if(version_compare(PHP_VERSION,'7.0.0','ge')) {
+			return $this->opensslDecrypt($str);
+		} else {
+			return $this->mcryptDecrypt($str);
+		}
+	}
+
+	private function opensslEncrypt($str) {
+		$data = openssl_encrypt($str, 'AES-128-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
+		return base64_encode($data);
+	}
+
+	private function opensslDecrypt($str) {
+		$decrypted = openssl_decrypt(base64_decode($str), 'AES-128-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
+		return $decrypted;
+	}
+	
+	private function mcryptEncrypt($str) {
 		//Open
 		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
 		mcrypt_generic_init($module, $this->key, $this->iv);
@@ -37,7 +66,7 @@ class EasyAESCrypt {
 		return base64_encode($encrypted);
 	}
 
-	function decrypt($str) {   
+	private function mcryptDecrypt($str) {
 		//Open 
 		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
 		mcrypt_generic_init($module, $this->key, $this->iv);

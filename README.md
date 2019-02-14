@@ -13,7 +13,7 @@ String plaitText = EasyAES.dencryptString(data);
 ```
 
 
-## php版本用法：
+## php版本用法(兼容php7.x)：
 ```PHP
 function encryptString($content) {
 	$aes = new EasyAESCrypt('****************', 128, '################');
@@ -25,7 +25,7 @@ function decryptString($content) {
 	return $aes->decrypt($content);
 }
 ```
-注意：php版本用到了mcrypt模块，需要安装并在php.ini中开启
+注意：php7.0以下版本用到了mcrypt模块，需要安装并在php.ini中开启。7.0及以上版本需要ssl模块，无需mcrypt
 
 
 ## iOS版本用法
