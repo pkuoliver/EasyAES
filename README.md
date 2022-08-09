@@ -13,7 +13,7 @@ String text = "this is plain text.";
 // encrypt
 String data = EasyAES.encryptString(text);
 // dencrypt
-String plainText = EasyAES.dencryptString(data);
+String plainText = EasyAES.decryptString(data);
 ```
 
 
@@ -23,7 +23,7 @@ $text = "this is plain text.";
 // encrypt
 $data = EasyAES::encryptString($text);
 // dencrypt
-$plainText = EasyAES.dencryptString($data);
+$plainText = EasyAES::decryptString($data);
 ```
 Notes：The php5.x version uses the [mcrypt](https://www.php.net/manual/en/book.mcrypt.php) extension, which needs to be installed and enabled in php.ini. php7.0 and above use the ssl module, so mcrypt is no longer required.
 

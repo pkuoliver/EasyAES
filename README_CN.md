@@ -21,7 +21,7 @@ $text = "this is plain text.";
 // encrypt
 $data = EasyAES::encryptString($text);
 // dencrypt
-$plainText = EasyAES.dencryptString($data);
+$plainText = EasyAES::decryptString($data);
 ```
 注意：php5.x版本用到了[mcrypt](https://www.php.net/manual/en/book.mcrypt.php)扩展，需要安装并在php.ini中开启。7.0及以上版本使用ssl模块，无需mcrypt。
 
