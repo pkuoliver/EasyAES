@@ -1,42 +1,44 @@
 # EasyAES
-AES encrypt/decrypt, Android, iOS, php compatible(兼容php, Android, iOS平台) 
+AES encrypt/decrypt library, Android, iOS, php compatible.
 
-可以在三个平台间加密解密数据，确保某个平台加密的数据，在另外两个平台能够解密。
+Data can be encrypted and decrypted between three platforms, ensuring that data encrypted on one platform can be decrypted on the other two platforms.
 
-## Android版本用法：
+[中文版说明](./README_CN.md)
+
+## Usage
+
+### Android：
 ```Java
-String text = "this is pliat text.";
+String text = "this is plain text.";
 // encrypt
-String data = EasyAES.encryptString(data);
+String data = EasyAES.encryptString(text);
 // dencrypt
-String plaitText = EasyAES.dencryptString(data);
+String plainText = EasyAES.dencryptString(data);
 ```
 
 
-## php版本用法(兼容php7.x)：
+### PHP：
 ```PHP
-function encryptString($content) {
-	$aes = new EasyAESCrypt('****************', 128, '################');
-	return $aes->encrypt($content);
-}
- 
-function decryptString($content) {
-	$aes = new EasyAESCrypt('****************', 128, '################');
-	return $aes->decrypt($content);
-}
+$text = "this is plain text.";
+// encrypt
+$data = EasyAES::encryptString($text);
+// dencrypt
+$plainText = EasyAES.dencryptString($data);
 ```
-注意：php7.0以下版本用到了mcrypt模块，需要安装并在php.ini中开启。7.0及以上版本需要ssl模块，无需mcrypt
+Notes：The php5.x version uses the [mcrypt](https://www.php.net/manual/en/book.mcrypt.php) extension, which needs to be installed and enabled in php.ini. php7.0 and above use the ssl module, so mcrypt is no longer required.
 
 
-## iOS版本用法
+### iOS
 ```Object-C
 NSData* pData = ...//encrypted data form server
 NSData* plaitData = [NSData AES128DecryptedData:data];
 ```
 
 
-以上所有版本都需要设置下自己的加密密码以及偏移向量iv，均为16位字符。
+All of the above usage need to set own password and offset vector(iv), both of which are 16-bit characters.
 
-后期计划加上C#, C, C++版本，敬请期待。
+## TODO List
 
-更多信息请访问我的博客[帝都码农](http://diducoder.com)
+Later plans to complete the C#, C, C++ version, so stay tuned.
+
+For more information, please visit my blog [帝都码农](http://diducoder.com)
