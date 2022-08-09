@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @see Base64
  */
 public class EasyAES {
- 
+
 	//-----类别常数-----
 	/**
 	 * 预设的Initialization Vector，为16 Bits的0
@@ -30,7 +30,7 @@ public class EasyAES {
 	 * AES使用CBC模式与PKCS5Padding
 	 */
 	private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
- 
+
 	//-----成员变量-----
 	/**
 	 * 取得AES加解密的秘钥
@@ -44,7 +44,7 @@ public class EasyAES {
 	 * Cipher 物件
 	 */
 	private Cipher cipher;
- 
+
 	/**
 	 * 构造函数，使用128 Bits的AES秘钥(计算任意长度秘钥的MD5)和预设IV
 	 *
@@ -53,7 +53,7 @@ public class EasyAES {
 	public EasyAES(final String key) {
 		this(key, 128);
 	}
- 
+
 	/**
 	 * 构造函数，使用128 Bits或是256 Bits的AES秘钥(计算任意长度秘钥的MD5或是SHA256)和预设IV
 	 *
@@ -63,7 +63,7 @@ public class EasyAES {
 	public EasyAES(final String key, final int bit) {
 		this(key, bit, null);
 	}
- 
+
 	/**
 	 * 构造函数，使用128 Bits或是256 Bits的AES秘钥(计算任意长度秘钥的MD5或是SHA256)，用MD5计算IV值
 	 *
@@ -82,10 +82,10 @@ public class EasyAES {
 		} else {
 			this.iv = DEFAULT_IV;
 		}
- 
+
 		init();
 	}
- 
+
 	//-----物件方法-----
 	/**
 	 * 取得字串的Hash值
@@ -101,7 +101,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 取得资料的Hash值
 	 *
@@ -118,7 +118,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 初始化
 	 */
@@ -129,7 +129,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 加密文字
 	 *
@@ -143,7 +143,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 加密资料
 	 *
@@ -159,7 +159,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 解密文字
 	 *
@@ -173,7 +173,7 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
- 
+
 	/**
 	 * 解密文字
 	 *
@@ -189,18 +189,18 @@ public class EasyAES {
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
-	
+
 	public static String encryptString(String content) {
-		//这里填写密码和iv字符串，注意要确保16位的
+		//Set password and iv string here, note that they are both 16-bit characters
 		EasyAES ea = new EasyAES("****************", 128, "################");
 		return ea.encrypt(content);
 	}
-	
+
 	public static String decryptString(String content) {
-        String result = null;
+		String result = null;
 		try {
-			//这里填写密码和iv字符串，注意要确保16位的
-			EasyAES ea = new EasyAES("****************", 128, "################");
+			//Set password and iv string here, note that they are both 16-bit characters
+		EasyAES ea = new EasyAES("****************", 128, "################");
 			result = ea.decrypt(content);
 		} catch(Exception ex) {
 			ex.printStackTrace();
