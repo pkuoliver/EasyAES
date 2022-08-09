@@ -1,8 +1,9 @@
 <?php
-class EasyAESCrypt {
+class EasyAES {
 	private $iv;
 	private $key;
 	private $bit; //Only can use 128, 256
+	
 	function __construct($key, $bit = 128, $iv = "") {
 		// gen key
 		if($bit == 256){
@@ -20,7 +21,7 @@ class EasyAESCrypt {
 	}
 
 	function encrypt($str) {
-		if(version_compare(PHP_VERSION,'7.0.0','ge')) {
+		if(version_compare(PHP_VERSION, '7.0.0', 'ge')) {
 			return $this->opensslEncrypt($str);
 		} else {
 			return $this->mcryptEncrypt($str);
@@ -28,7 +29,7 @@ class EasyAESCrypt {
 	}
 
 	function decrypt($str) {
-		if(version_compare(PHP_VERSION,'7.0.0','ge')) {
+		if(version_compare(PHP_VERSION, '7.0.0', 'ge')) {
 			return $this->opensslDecrypt($str);
 		} else {
 			return $this->mcryptDecrypt($str);
@@ -44,7 +45,7 @@ class EasyAESCrypt {
 		$decrypted = openssl_decrypt(base64_decode($str), 'AES-128-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
 		return $decrypted;
 	}
-	
+
 	private function mcryptEncrypt($str) {
 		//Open
 		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
@@ -67,7 +68,7 @@ class EasyAESCrypt {
 	}
 
 	private function mcryptDecrypt($str) {
-		//Open 
+		//Open
 		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
 		mcrypt_generic_init($module, $this->key, $this->iv);
 
@@ -83,6 +84,18 @@ class EasyAESCrypt {
 		$str = substr($str, 0, strlen($str) - $slast);
 
 		//Return
-		return $str;           
+		return $str;
+	}
+
+	static function encryptString($content) {
+		//Set password and iv string here, note that they are both 16-bit characters
+		$aes = new EasyAES('****************', 128, '################');
+		return $aes->encrypt($content);
+	}
+
+	static function decryptString($content) {
+		//Set password and iv string here, note that they are both 16-bit characters
+		$aes = new EasyAES('****************', 128, '################');
+		return $aes->decrypt($content);
 	}
 }
