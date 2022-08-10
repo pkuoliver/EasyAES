@@ -1,7 +1,7 @@
 # EasyAES
-AES encrypt/decrypt library, Android, iOS, php compatible.
+AES encrypt/decrypt library, Android, iOS, PHP compatible.
 
-Data can be encrypted and decrypted between three platforms, ensuring that data encrypted on one platform can be decrypted on the other two platforms.
+Data can be encrypted and decrypted between three platforms, and data encrypted on one platform can be decrypted on the other two platforms.
 
 [中文版说明](./README_CN.md)
 

@@ -1,5 +1,5 @@
 # EasyAES
-AES 加密解密库, 兼容php, Android, iOS平台。
+AES 加密解密库, 兼容PHP, Android, iOS平台。
 
 可以在三个平台间加密解密数据，确保某个平台加密的数据，在另外两个平台能够解密。
 

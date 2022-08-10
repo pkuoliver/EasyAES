@@ -77,6 +77,7 @@ public class EasyAES {
 		} else {
 			this.key = new SecretKeySpec(getHash("MD5", key), ALGORITHM);
 		}
+		
 		if (iv != null) {
 			this.iv = new IvParameterSpec(getHash("MD5", iv));
 		} else {
@@ -200,7 +201,7 @@ public class EasyAES {
 		String result = null;
 		try {
 			//Set password and iv string here, note that they are both 16-bit characters
-		EasyAES ea = new EasyAES("****************", 128, "################");
+			EasyAES ea = new EasyAES("****************", 128, "################");
 			result = ea.decrypt(content);
 		} catch(Exception ex) {
 			ex.printStackTrace();
