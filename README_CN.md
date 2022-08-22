@@ -8,20 +8,22 @@ AES 加密解密库, 兼容PHP, Android, iOS平台。
 ### Android/Java用法：
 ```Java
 String text = "this is pliat text.";
+EasyAES aes = new EasyAES("****************", 128, "################");
 // 加密
-String data = EasyAES.encryptString(text);
+String data = aes.encrypt(text);
 // 解密
-String plainText = EasyAES.dencryptString(data);
+String plainText = aes.decrypt(data);
 ```
 
 
 ### PHP版本用法（兼容php7.x，8.x）：
 ```PHP
 $text = "this is plain text.";
-// encrypt
-$data = EasyAES::encryptString($text);
-// dencrypt
-$plainText = EasyAES::decryptString($data);
+$aes = new EasyAES('****************', 128, '################');
+// 加密
+$data = $aes->encrypt($text);
+// 解密
+$plainText = $aes->decrypt($data);
 ```
 注意：php5.x版本用到了[mcrypt](https://www.php.net/manual/en/book.mcrypt.php)扩展，需要安装并在php.ini中开启。7.0及以上版本使用ssl模块，无需mcrypt。
 
@@ -36,11 +38,11 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 ### Python版本用法
 ```Python
 text = "this is plain text."
-aes = EasyAES('xxxxxxxxxxxxxxxx', 'iiiiiiiiiiiiiiii')
+aes = EasyAES('****************', '################')
 # 加密字符串
-e = aes.encrypt(data)
+data = aes.encrypt(text)
 # 解密字符串
-d = aes.decrypt(e)
+plainText = aes.decrypt(data)
 ```
 
 以上所有版本都需要设置下自己的加密密码以及偏移向量iv，均为16位字符。

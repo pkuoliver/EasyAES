@@ -10,20 +10,22 @@ Data can be encrypted and decrypted between three platforms, and data encrypted 
 ### Android：
 ```Java
 String text = "this is plain text.";
+EasyAES aes = new EasyAES("****************", 128, "################");
 // encrypt
-String data = EasyAES.encryptString(text);
-// dencrypt
-String plainText = EasyAES.decryptString(data);
+String data = aes.encrypt(text);
+// decrypt
+String plainText = aes.decrypt(data);
 ```
 
 
 ### PHP：
 ```PHP
 $text = "this is plain text.";
+$aes = new EasyAES('****************', 128, '################');
 // encrypt
-$data = EasyAES::encryptString($text);
-// dencrypt
-$plainText = EasyAES::decryptString($data);
+$data = $aes->encrypt($text);
+// decrypt
+$plainText = $aes->decrypt($data);
 ```
 Notes：The php5.x version uses the [mcrypt](https://www.php.net/manual/en/book.mcrypt.php) extension, which needs to be installed and enabled in php.ini. php7.0 and above use the ssl module, so mcrypt is no longer required.
 
@@ -40,9 +42,9 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 text = "this is plain text."
 aes = EasyAES('xxxxxxxxxxxxxxxx', 'iiiiiiiiiiiiiiii')
 # encrypt string
-e = aes.encrypt(data)
+data = aes.encrypt(text)
 # decrypt string
-d = aes.decrypt(e)
+plainText = aes.decrypt(data)
 ```
 
 All of the above usage need to set own password and offset vector(iv), both of which are 16-bit characters.
