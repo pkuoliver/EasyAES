@@ -33,6 +33,16 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 ```
 
 
+### Python版本用法
+```Python
+text = "this is plain text."
+aes = EasyAES('xxxxxxxxxxxxxxxx', 'iiiiiiiiiiiiiiii')
+# 加密字符串
+e = aes.encrypt(data)
+# 解密字符串
+d = aes.decrypt(e)
+```
+
 以上所有版本都需要设置下自己的加密密码以及偏移向量iv，均为16位字符。
 
 后期计划加上C#, C, C++版本，敬请期待。

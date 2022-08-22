@@ -35,6 +35,16 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 ```
 
 
+### Python
+```Python
+text = "this is plain text."
+aes = EasyAES('xxxxxxxxxxxxxxxx', 'iiiiiiiiiiiiiiii')
+# encrypt string
+e = aes.encrypt(data)
+# decrypt string
+d = aes.decrypt(e)
+```
+
 All of the above usage need to set own password and offset vector(iv), both of which are 16-bit characters.
 
 ## TODO List
