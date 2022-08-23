@@ -1,7 +1,7 @@
 # EasyAES
-AES encrypt/decrypt library, Android, iOS, PHP compatible.
+AES encrypt/decrypt library, Android, iOS, PHP, Python, C# compatible.
 
-Data can be encrypted and decrypted between three platforms, and data encrypted on one platform can be decrypted on the other two platforms.
+Data can be encrypted and decrypted between five platforms, and data encrypted on one platform can be decrypted on the other four platforms.
 
 [中文版说明](./README_CN.md)
 
@@ -10,7 +10,7 @@ Data can be encrypted and decrypted between three platforms, and data encrypted 
 ### Android：
 ```Java
 String text = "this is plain text.";
-EasyAES aes = new EasyAES("****************", 128, "################");
+EasyAES aes = new EasyAES("password here", 256, "iv here");
 // encrypt
 String data = aes.encrypt(text);
 // decrypt
@@ -21,7 +21,7 @@ String plainText = aes.decrypt(data);
 ### PHP：
 ```PHP
 $text = "this is plain text.";
-$aes = new EasyAES('****************', 128, '################');
+$aes = new EasyAES('password here', 256, 'iv here');
 // encrypt
 $data = $aes->encrypt($text);
 // decrypt
@@ -40,17 +40,28 @@ NSData* plaitData = [NSData AES128DecryptedData:data];
 ### Python
 ```Python
 text = "this is plain text."
-aes = EasyAES('xxxxxxxxxxxxxxxx', 'iiiiiiiiiiiiiiii')
+aes = EasyAES('password here', 256, 'iv here')
 # encrypt string
 data = aes.encrypt(text)
 # decrypt string
 plainText = aes.decrypt(data)
 ```
 
-All of the above usage need to set own password and offset vector(iv), both of which are 16-bit characters.
+
+### C#版本用法
+```C#
+string text = "this is plain text.";
+EasyAES aes = new EasyAES("password here", 256, "iv here");
+// encrypt
+string encText = aes.Encrypt(text);
+// decrypt
+string decText = aes.Decrypt(encText);
+```
+
+All of the above usage need to set own password and offset vector(iv).
 
 ## TODO List
 
-Later plans to complete the C#, C, C++ version, so stay tuned.
+Later plans to complete the C, C++ version, so stay tuned.
 
 For more information, please visit my blog [帝都码农](http://diducoder.com)
