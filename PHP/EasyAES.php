@@ -3,20 +3,25 @@ class EasyAES {
 	private $iv;
 	private $key;
 	private $bit; //Only can use 128, 256
-	
+	private $mode;
+
 	function __construct($key, $bit = 128, $iv = "") {
+		$this->bit = $bit;
 		// gen key
-		if($bit == 256){
+		if($this->bit == 256){
 			$this->key = hash('SHA256', $key, true);
-		}else{
+			$this->mode = 'AES-256-CBC';
+		} else {
 			$this->key = hash('MD5', $key, true);
+			$this->mode = 'AES-128-CBC';
 		}
 
 		// gen iv
 		if($iv != ""){
 			$this->iv = hash('MD5', $iv, true);
-		}else{
-			$this->iv = chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0); //IV is not set. It doesn't recommend.
+		} else {
+			//IV is not set. It doesn't recommend.
+			$this->iv = chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0).chr(0);
 		}
 	}
 
@@ -37,22 +42,27 @@ class EasyAES {
 	}
 
 	private function opensslEncrypt($str) {
-		$data = openssl_encrypt($str, 'AES-128-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
+		$data = openssl_encrypt($str, $this->mode, $this->key, OPENSSL_RAW_DATA, $this->iv);
 		return base64_encode($data);
 	}
 
 	private function opensslDecrypt($str) {
-		$decrypted = openssl_decrypt(base64_decode($str), 'AES-128-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
+		$decrypted = openssl_decrypt(base64_decode($str), $this->mode, $this->key, OPENSSL_RAW_DATA, $this->iv);
 		return $decrypted;
 	}
 
 	private function mcryptEncrypt($str) {
+		$mcryptMode = MCRYPT_RIJNDAEL_128;
+		if($this->bit == 256){
+			$mcryptMode = MCRYPT_RIJNDAEL_256;
+		}
+
 		//Open
-		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+		$module = mcrypt_module_open($mcryptMode, '', MCRYPT_MODE_CBC, '');
 		mcrypt_generic_init($module, $this->key, $this->iv);
 
 		//Padding
-		$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC); //Get Block Size
+		$block = mcrypt_get_block_size($mcryptMode, MCRYPT_MODE_CBC); //Get Block Size
 		$pad = $block - (strlen($str) % $block); //Compute how many characters need to pad
 		$str .= str_repeat(chr($pad), $pad); // After pad, the str length must be equal to block or its integer multiples
 
@@ -68,8 +78,13 @@ class EasyAES {
 	}
 
 	private function mcryptDecrypt($str) {
+		$mcryptMode = MCRYPT_RIJNDAEL_128;
+		if($this->bit == 256){
+			$mcryptMode = MCRYPT_RIJNDAEL_256;
+		}
+
 		//Open
-		$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+		$module = mcrypt_module_open($mcryptMode, '', MCRYPT_MODE_CBC, '');
 		mcrypt_generic_init($module, $this->key, $this->iv);
 
 		//Decrypt
@@ -88,13 +103,13 @@ class EasyAES {
 	}
 
 	static function encryptString($content) {
-		//Set password and iv string here, note that they are both 16-bit characters
+		//Set password and iv string here
 		$aes = new EasyAES('****************', 128, '################');
 		return $aes->encrypt($content);
 	}
 
 	static function decryptString($content) {
-		//Set password and iv string here, note that they are both 16-bit characters
+		//Set password and iv string here
 		$aes = new EasyAES('****************', 128, '################');
 		return $aes->decrypt($content);
 	}

@@ -192,7 +192,7 @@ public class EasyAES {
 	}
 
 	public static String encryptString(String content) {
-		//Set password and iv string here, note that they are both 16-bit characters
+		//Set password and iv string here
 		EasyAES ea = new EasyAES("****************", 128, "################");
 		return ea.encrypt(content);
 	}
@@ -200,7 +200,7 @@ public class EasyAES {
 	public static String decryptString(String content) {
 		String result = null;
 		try {
-			//Set password and iv string here, note that they are both 16-bit characters
+			//Set password and iv string here
 			EasyAES ea = new EasyAES("****************", 128, "################");
 			result = ea.decrypt(content);
 		} catch(Exception ex) {

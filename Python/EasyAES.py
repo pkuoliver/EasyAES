@@ -5,7 +5,16 @@ import hashlib
 class EasyAES(object):
 
 	def __init__(self, key, iv):
-		self.key = hashlib.md5(key.encode('utf-8')).digest()
+		self.__init(key, 128, iv)
+
+	def __init__(self, key, bit, iv):
+		self.__init(key, bit, iv)
+
+	def __init(self, key, bit, iv):
+		if(bit == 256):
+			self.key = hashlib.sha256(key.encode('utf-8')).digest()
+		else:
+			self.key = hashlib.md5(key.encode('utf-8')).digest()
 		self.iv  = hashlib.md5(iv.encode('utf-8')).digest()
 
 		self.mode = AES.MODE_CBC
