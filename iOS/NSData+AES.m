@@ -25,7 +25,7 @@
 
 	size_t numBytesEncrypted = 0;
 	CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
-										  kCCAlgorithmAES128,
+										  kCCAlgorithmAES,
 										  0x0001,
 										  pKey,
 										  kCCBlockSizeAES128,
@@ -61,7 +61,7 @@
 
 	size_t numBytesEncrypted = 0;
 	CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
-										  kCCAlgorithmAES128,
+										  kCCAlgorithmAES,
 										  0x0000,
 										  pKey,
 										  kCCBlockSizeAES128,
@@ -134,7 +134,7 @@
 
 	size_t numBytesEncrypted = 0;
 	CCCryptorStatus cryptStatus = CCCrypt(operation,
-										  kCCAlgorithmAES128,
+										  kCCAlgorithmAES,
 										  0x00000000,
 										  pKey,
 										  kCCBlockSizeAES128,
@@ -152,13 +152,13 @@
 }
 
 + (NSData *)AES128EncryptedData:(NSData *)pData {
-	//Set password and iv string here, note that they are both 16-bit characters
+	//Set password and iv string here
 	pData = [pData AES128EncryptWithKey:@"****************" iv:@"################"];
 	return [GTMBase64 encodeData:pData];
 }
 
 + (NSData *)AES128DecryptedData:(NSData *)pData {
-	//Set password and iv string here, note that they are both 16-bit characters
+	//Set password and iv string here
 	pData = [GTMBase64 decodeData:pData];
 	return [pData AES128DecryptWithKey:@"****************" iv:@"################"];
 }
