@@ -6,7 +6,7 @@ AES 加密解密库, 兼容PHP, Android, iOS, Python, C#平台。
 ## 使用方法
 
 ### Android/Java用法：
-```Java
+``` java
 String text = "this is pliat text.";
 EasyAES aes = new EasyAES("password here", 256, "iv here");
 // 加密
@@ -17,7 +17,7 @@ String plainText = aes.decrypt(data);
 
 
 ### PHP版本用法（兼容php7.x，8.x）：
-```PHP
+``` php
 $text = "this is plain text.";
 $aes = new EasyAES('password here', 256, 'iv here');
 // 加密
@@ -29,14 +29,23 @@ $plainText = $aes->decrypt($data);
 
 
 ### iOS版本用法
-```Object-C
-NSData* pData = ...//encrypted data form server
-NSData* plaitData = [NSData AES128DecryptedData:data];
+``` objc
+NSString *text = @"this is plain text.";
+EasyAES *aes = [[EasyAES alloc] initWithKey:@"your key" bit:256 andIV:@"your iv"];
+// encrypt
+NSString *data = [aes encrypt:text];
+// decrypt
+NSString *plainText = [aes decrypt:data];
+
+// 加密/解密 NSData对象
+NSData *pData = ...//已经加密的NSData对象
+NSData *plainData = [aes decryptedData:pData];
+NSData *encData = [aes encryptedData:plainData];
 ```
 
 
 ### Python版本用法
-```Python
+``` python
 text = "this is plain text."
 aes = EasyAES('password here', 256, 'iv here')
 # 加密字符串
@@ -47,7 +56,7 @@ plainText = aes.decrypt(data)
 
 
 ### C#版本用法
-```C#
+``` csharp
 string text = "this is plain text.";
 EasyAES aes = new EasyAES("password here", 256, "iv here");
 // 加密
@@ -57,6 +66,14 @@ string decText = aes.Decrypt(encText);
 ```
 
 以上所有版本都需要设置下自己的加密密码以及偏移向量iv，不能为空。
+
+
+## 128位还是256位
+256位的AES加密算法有着更高的安全性，因此强烈推荐使用256位的加密方法，不过会造成一些性能损失。
+
+如果对性能非常敏感，可以使用128位的方法，只需要将构造函数的第二个参数改为128即可。
+
+## 其他
 
 后期计划加上C, C++版本，敬请期待。
 
